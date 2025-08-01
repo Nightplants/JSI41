@@ -9,11 +9,7 @@ convert.addEventListener(`click`, function (e) {
 
   console.log(key1.value);
 
-  let array = localStorage.getItem(`Array`);
-  array = JSON.parse(array);
-  if (array === null) {
-    array = [];
-  }
+  let array = JSON.parse(localStorage.getItem(`Array`)) || [];
   key1.value = ``;
   value1.value = ``;
   key2.value = ``;
