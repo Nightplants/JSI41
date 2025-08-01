@@ -1,21 +1,33 @@
-let inputText = document.querySelector(".inputText");
-let convert = document.querySelector(".convert");
+let key1 = document.querySelector(`.key1`);
+let value1 = document.querySelector(`.value1`);
+let key2 = document.querySelector(`.key2`);
+let value2 = document.querySelector(`.value2`);
+let convert = document.querySelector(`.convert`);
 
-convert.addEventListener("click", function (e) {
+convert.addEventListener(`click`, function (e) {
   e.defaultPrevented;
 
-  let array = localStorage.getItem("Array")
-  array = JSON.parse(array)
-  if (array === null) {
-    array = []
-  }
-//   let value = inputText.value.toUpperCase();
-//   inputText.value = "";
-  let result = document.createElement("p");
-  result.textContent = value;
-  document.body.appendChild(result);
-  array.push(value);
-  console.log(array);
+  console.log(key1.value);
 
-  localStorage.setItem("Array", JSON.stringify(array))
+  let array = localStorage.getItem(`Array`);
+  array = JSON.parse(array);
+  if (array === null) {
+    array = [];
+  }
+  key1.value = ``;
+  value1.value = ``;
+  key2.value = ``;
+  value2.value = ``;
+
+  let Obj = {};
+
+  Obj[key1.value] = value1.value;
+  Obj[key2.value] = value2.value;
+
+  console.log(Obj);
+
+  //   array.push(value);
+  //   console.log(array);
+
+  //   localStorage.setItem(`Array`, JSON.stringify(array));
 });

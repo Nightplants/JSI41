@@ -29,25 +29,25 @@ for (let i = 0; i < List1.length; i++) {
 alert(`Các số lẻ là: ${oddList}`);
 
 alert(`d)`);
-let expression = List1.join(" + ");
+let expression = List1.join(` + `);
 alert(`${expression} = ${sum}`);
 
 // Bài 2
 function submitInfo() {
-  const input = document.getElementById("inputText");
-  const list = document.getElementById("infoList");
+  const input = document.getElementById(`inputText`);
+  const list = document.getElementById(`infoList`);
   const value = input.value.trim();
 
-  if (value !== "") {
-    const listItem = document.createElement("li");
+  if (value !== ``) {
+    const listItem = document.createElement(`li`);
     listItem.textContent = value;
     list.appendChild(listItem);
-    input.value = "";
+    input.value = ``;
   }
 }
 
 // Bài 3
 function toggleShape() {
-  const shape = document.getElementById("shape");
-  shape.classList.toggle("circle");
+  const shape = document.getElementById(`shape`);
+  shape.classList.toggle(`circle`);
 }
