@@ -9,8 +9,8 @@ convert.addEventListener("click", function (e) {
   if (array === null) {
     array = []
   }
-  let value = inputText.value.toUpperCase();
-  inputText.value = "";
+//   let value = inputText.value.toUpperCase();
+//   inputText.value = "";
   let result = document.createElement("p");
   result.textContent = value;
   document.body.appendChild(result);
