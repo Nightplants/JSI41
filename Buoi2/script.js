@@ -1,29 +1,33 @@
-let key1 = document.querySelector(`.key1`);
-let value1 = document.querySelector(`.value1`);
-let key2 = document.querySelector(`.key2`);
-let value2 = document.querySelector(`.value2`);
-let convert = document.querySelector(`.convert`);
+let textInput = document.querySelector(`.textInput`);
+let add = document.querySelector(`.add`);
+let addObj = document.querySelector(`.addObj`);
+let array = JSON.parse(localStorage.getItem(`array`)) || [];
 
-convert.addEventListener(`click`, function (e) {
+add.addEventListener(`click`, function (e) {
   e.defaultPrevented;
 
-  console.log(key1.value);
+  let text = textInput.value;
+  if (text === ``) {
+    alert(`Xin vui lòng nhập gì đó trước khi lưu!`);
+    return;
+  }
+  textInput.value = ``;
 
-  let array = JSON.parse(localStorage.getItem(`Array`)) || [];
-  key1.value = ``;
-  value1.value = ``;
-  key2.value = ``;
-  value2.value = ``;
+  array.push(text);
+  localStorage.setItem(`array`, JSON.stringify(array));
+});
+
+addObj.addEventListener(`click`, function (a) {
+  a.defaultPrevented;
 
   let Obj = {};
+  let pairs = Number(prompt(`Bạn muốn bao nhiêu cặp key-value?`));
+  for (i = 1; i <= pairs; i++) {
+    let key = prompt(`Key${i} là:`);
+    let value = prompt(`Value${i} là:`);
+    Obj[key] = value;
+  }
 
-  Obj[key1.value] = value1.value;
-  Obj[key2.value] = value2.value;
-
-  console.log(Obj);
-
-  //   array.push(value);
-  //   console.log(array);
-
-  //   localStorage.setItem(`Array`, JSON.stringify(array));
+  array.push(Obj);
+  localStorage.setItem(`array`, JSON.stringify(array));
 });
