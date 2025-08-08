@@ -1,6 +1,6 @@
 let List = document.querySelector(`.List`);
 let array = JSON.parse(localStorage.getItem(`array`)) || [
-  "You don't have anything yet!",
+  `You don't have anything yet!`,
 ];
 
 console.log(array);
