@@ -44,42 +44,47 @@ const products = [
 let body = document.querySelector(`body`);
 let containers = document.getElementsByClassName(`container`);
 let search_bar = document.querySelector(`.search_bar`);
+let category_search = document.querySelector(`.category_search`);
 
 products.forEach((product) => {
   let container = document.createElement(`div`);
   container.className = `container`;
   let product_item = document.createElement(`div`);
   product_item.className = `product_item`;
-  let image = document.createElement(`img`);
-  image.src = product.image;
-  let name = document.createElement(`h3`);
-  name.textContent = product.name;
-  let price = document.createElement(`p`);
-  price.textContent = `Giá: ${product.price} VNĐ`;
-  let category = document.createElement(`p`);
-  category.textContent = product.category;
-  let add = document.createElement(`button`);
-  add.textContent = `Thêm vào giỏ hàng`;
-
-  product_item.appendChild(image);
-  product_item.appendChild(name);
-  product_item.appendChild(price);
-  product_item.appendChild(category);
-  product_item.appendChild(add);
+  product_item.innerHTML = `
+        <img src="${product.image}" alt="${product.name}">
+        <h3>${product.name}</h3>
+        <p>Giá: ${product.price}</p>
+        <p>${product.category}</p>
+        <button>Thêm vào giỏ hàng</button>
+    `;
   container.appendChild(product_item);
-
   body.appendChild(container);
 });
 
-search_bar.addEventListener("input", function () {
+search_bar.addEventListener(`input`, function () {
   let keyword = search_bar.value.toLowerCase().trim();
 
   for (let i = 0; i < containers.length; i++) {
     let text = containers[i].textContent.toLowerCase();
     if (text.includes(keyword)) {
-      containers[i].style.display = "flex";
+      containers[i].style.display = `flex`;
     } else {
-      containers[i].style.display = "none";
+      containers[i].style.display = `none`;
+    }
+  }
+});
+
+category_search.addEventListener(`input`, function () {
+  let keyword = category_search.value.toLowerCase().trim();
+
+  for (let i = 0; i < containers.length; i++) {
+    let text = containers[i].children[0].children[3].textContent.toLowerCase();
+
+    if (text.includes(keyword)) {
+      containers[i].style.display = `flex`;
+    } else {
+      containers[i].style.display = `none`;
     }
   }
 });
