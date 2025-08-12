@@ -39,27 +39,109 @@ const products = [
     description: `Bình giữ nhiệt 500ml giữ nóng/lạnh lên đến 12 giờ.`,
     image: `https://picsum.photos/300/200?random=5`,
   },
+
+  // sản phẩm mới
+  {
+    id: 6,
+    name: `Mũ Lưỡi Trai Nam`,
+    price: 99000,
+    category: `Phụ kiện`,
+    description: `Mũ lưỡi trai thời trang cho nam.`,
+    image: `https://picsum.photos/300/200?random=6`,
+  },
+  {
+    id: 7,
+    name: `Balo Laptop Chống Nước`,
+    price: 350000,
+    category: `Phụ kiện`,
+    description: `Balo laptop chống nước, nhiều ngăn tiện lợi.`,
+    image: `https://picsum.photos/300/200?random=7`,
+  },
+  {
+    id: 8,
+    name: `Điện Thoại Android A1`,
+    price: 2990000,
+    category: `Điện tử`,
+    description: `Điện thoại Android giá rẻ, hiệu năng ổn định.`,
+    image: `https://picsum.photos/300/200?random=8`,
+  },
+  {
+    id: 9,
+    name: `Loa Bluetooth Mini`,
+    price: 250000,
+    category: `Điện tử`,
+    description: `Loa Bluetooth nhỏ gọn, âm thanh sống động.`,
+    image: `https://picsum.photos/300/200?random=9`,
+  },
+  {
+    id: 10,
+    name: `Bộ LEGO City`,
+    price: 899000,
+    category: `Đồ chơi`,
+    description: `Bộ LEGO City cho trẻ em từ 6 tuổi trở lên.`,
+    image: `https://picsum.photos/300/200?random=10`,
+  },
+  {
+    id: 11,
+    name: `Búp Bê Barbie`,
+    price: 499000,
+    category: `Đồ chơi`,
+    description: `Búp bê Barbie với phụ kiện thời trang.`,
+    image: `https://picsum.photos/300/200?random=11`,
+  },
+  {
+    id: 12,
+    name: `Sách Kỹ Năng Sống`,
+    price: 120000,
+    category: `Sách`,
+    description: `Cuốn sách dạy kỹ năng sống cho mọi lứa tuổi.`,
+    image: `https://picsum.photos/300/200?random=12`,
+  },
+  {
+    id: 13,
+    name: `Tiểu Thuyết Lãng Mạn`,
+    price: 95000,
+    category: `Sách`,
+    description: `Tiểu thuyết tình cảm nhẹ nhàng, sâu lắng.`,
+    image: `https://picsum.photos/300/200?random=13`,
+  },
+  {
+    id: 14,
+    name: `Bàn Học Gấp Gọn`,
+    price: 450000,
+    category: `Gia dụng`,
+    description: `Bàn học gấp gọn tiết kiệm diện tích.`,
+    image: `https://picsum.photos/300/200?random=14`,
+  },
+  {
+    id: 15,
+    name: `Máy Xay Sinh Tố Mini`,
+    price: 380000,
+    category: `Gia dụng`,
+    description: `Máy xay mini nhỏ gọn, dễ vệ sinh.`,
+    image: `https://picsum.photos/300/200?random=15`,
+  },
 ];
 
 let body = document.querySelector(`body`);
-let containers = document.getElementsByClassName(`container`);
 let search_bar = document.querySelector(`.search_bar`);
+let button_container = document.querySelector(`.category`);
 
-products.forEach((product) => {
-  let categories = [];
-  if (!categories.includes(product.category)) {
-    categories.push(product.category);
-    let button = document.createElement(`button`);
-    button.name = product.category;
-    button.className = `category_button`;
-    button.textContent = product.category;
-    body.appendChild(button);
-  }
+// tạo nút category (tránh trùng)
+let categorySet = new Set(products.map((p) => p.category));
+categorySet.forEach((cat) => {
+  let button = document.createElement(`button`);
+  button.name = cat;
+  button.className = `category_button`;
+  button.textContent = cat;
+  button_container.appendChild(button);
 });
 
+// tạo danh sách sản phẩm
 products.forEach((product) => {
   let container = document.createElement(`div`);
   container.className = `container`;
+  container.dataset.category = product.category;
   let product_item = document.createElement(`div`);
   product_item.className = `product_item`;
   product_item.innerHTML = `
@@ -73,15 +155,44 @@ products.forEach((product) => {
   body.appendChild(container);
 });
 
-search_bar.addEventListener(`input`, function () {
+let containers = document.getElementsByClassName(`container`);
+
+// lấy danh sách category đang chọn
+function getActiveCategories() {
+  return Array.from(document.querySelectorAll(".category_button.active")).map(
+    (b) => b.name
+  );
+}
+
+// áp dụng lọc
+function applyFilter() {
   let keyword = search_bar.value.toLowerCase().trim();
+  let activeCategories = getActiveCategories();
 
   for (let i = 0; i < containers.length; i++) {
     let text = containers[i].textContent.toLowerCase();
-    if (text.includes(keyword)) {
+    let categoryMatch =
+      activeCategories.length === 0 ||
+      activeCategories.includes(containers[i].dataset.category);
+    let searchMatch = text.includes(keyword);
+
+    if (categoryMatch && searchMatch) {
       containers[i].style.display = `flex`;
     } else {
       containers[i].style.display = `none`;
     }
   }
-});
+}
+
+// tìm kiếm
+search_bar.addEventListener(`input`, applyFilter);
+
+// lọc theo category (cho phép nhiều nút active)
+let buttons = document.getElementsByClassName(`category_button`);
+for (let i = 0; i < buttons.length; i++) {
+  let button = buttons[i];
+  button.addEventListener(`click`, function () {
+    button.classList.toggle("active");
+    applyFilter();
+  });
+}
