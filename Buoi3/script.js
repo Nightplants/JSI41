@@ -44,7 +44,18 @@ const products = [
 let body = document.querySelector(`body`);
 let containers = document.getElementsByClassName(`container`);
 let search_bar = document.querySelector(`.search_bar`);
-let category_search = document.querySelector(`.category_search`);
+
+products.forEach((product) => {
+  let categories = [];
+  if (!categories.includes(product.category)) {
+    categories.push(product.category);
+    let button = document.createElement(`button`);
+    button.name = product.category;
+    button.className = `category_button`;
+    button.textContent = product.category;
+    body.appendChild(button);
+  }
+});
 
 products.forEach((product) => {
   let container = document.createElement(`div`);
@@ -67,20 +78,6 @@ search_bar.addEventListener(`input`, function () {
 
   for (let i = 0; i < containers.length; i++) {
     let text = containers[i].textContent.toLowerCase();
-    if (text.includes(keyword)) {
-      containers[i].style.display = `flex`;
-    } else {
-      containers[i].style.display = `none`;
-    }
-  }
-});
-
-category_search.addEventListener(`input`, function () {
-  let keyword = category_search.value.toLowerCase().trim();
-
-  for (let i = 0; i < containers.length; i++) {
-    let text = containers[i].children[0].children[3].textContent.toLowerCase();
-
     if (text.includes(keyword)) {
       containers[i].style.display = `flex`;
     } else {
