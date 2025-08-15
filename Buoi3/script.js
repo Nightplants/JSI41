@@ -40,7 +40,6 @@ const products = [
     image: `https://picsum.photos/300/200?random=5`,
   },
 
-  // sản phẩm mới
   {
     id: 6,
     name: `Mũ Lưỡi Trai Nam`,
@@ -127,7 +126,6 @@ let body = document.querySelector(`body`);
 let search_bar = document.querySelector(`.search_bar`);
 let button_container = document.querySelector(`.category`);
 
-// tạo nút category (tránh trùng)
 let categorySet = new Set(products.map((p) => p.category));
 categorySet.forEach((cat) => {
   let button = document.createElement(`button`);
@@ -137,7 +135,6 @@ categorySet.forEach((cat) => {
   button_container.appendChild(button);
 });
 
-// tạo danh sách sản phẩm
 products.forEach((product) => {
   let container = document.createElement(`div`);
   container.className = `container`;
@@ -157,14 +154,12 @@ products.forEach((product) => {
 
 let containers = document.getElementsByClassName(`container`);
 
-// lấy danh sách category đang chọn
 function getActiveCategories() {
   return Array.from(document.querySelectorAll(".category_button.active")).map(
     (b) => b.name
   );
 }
 
-// áp dụng lọc
 function applyFilter() {
   let keyword = search_bar.value.toLowerCase().trim();
   let activeCategories = getActiveCategories();
@@ -184,10 +179,8 @@ function applyFilter() {
   }
 }
 
-// tìm kiếm
 search_bar.addEventListener(`input`, applyFilter);
 
-// lọc theo category (cho phép nhiều nút active)
 let buttons = document.getElementsByClassName(`category_button`);
 for (let i = 0; i < buttons.length; i++) {
   let button = buttons[i];
