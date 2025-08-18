@@ -122,6 +122,8 @@ const products = [
   },
 ];
 
+localStorage.setItem(`products`, JSON.stringify(products))
+
 let body = document.querySelector(`body`);
 let search_bar = document.querySelector(`.search_bar`);
 let button_container = document.querySelector(`.category`);
@@ -146,6 +148,7 @@ products.forEach((product) => {
         <h3>${product.name}</h3>
         <p>Giá: ${product.price}</p>
         <p>${product.category}</p>
+        <a href="./product_detail.html?product_id=${product.id}">Xem chi tiết tại đây</a>
         <button>Thêm vào giỏ hàng</button>
     `;
   container.appendChild(product_item);

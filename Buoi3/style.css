@@ -49,6 +49,17 @@ body {
   text-align: center;
 }
 
+.product_item a {
+  color: black;
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.product_item a:hover {
+  color: #007bff;
+}
+
 .product_item img {
   width: 100%;
   height: auto;
