@@ -1,3 +1,4 @@
+let container = document.querySelector(`.container`);
 let search_box = document.querySelector(`.search_box`);
 let place = document.querySelector(`.place`);
 let weather_code = document.querySelector(`.weather_code`);
@@ -29,71 +30,69 @@ search_box.addEventListener(`keydown`, function (e) {
             wind_speed.textContent = `${dataWeather.current_weather.windspeed}${dataWeather.current_weather_units.windspeed}`;
             if (dataWeather.current_weather.weathercode === 0) {
               weather_code.textContent = `Clear sky`;
+              container.style.backgroundColor = `skyblue`;
             } else if (
               dataWeather.current_weather.weathercode === 1 ||
-              2 ||
-              3
+              dataWeather.current_weather.weathercode === 2 ||
+              dataWeather.current_weather.weathercode === 3
             ) {
               weather_code.textContent = `Mainly clear, partly cloudy, and overcast`;
-            } else if (dataWeather.current_weather.weathercode === 45 || 48) {
+              container.style.backgroundColor = `skyblue`;
+            } else if (
+              dataWeather.current_weather.weathercode === 45 ||
+              dataWeather.current_weather.weathercode === 48
+            ) {
               weather_code.textContent = `Fog and depositing rime fog`;
             } else if (
               dataWeather.current_weather.weathercode === 51 ||
-              53 ||
-              55
+              dataWeather.current_weather.weathercode === 53 ||
+              dataWeather.current_weather.weathercode === 55
             ) {
               weather_code.textContent = `Drizzle: Light, moderate, and dense intensity`;
-            } else if (dataWeather.current_weather.weathercode === 56 || 57) {
+            } else if (
+              dataWeather.current_weather.weathercode === 56 ||
+              dataWeather.current_weather.weathercode === 57
+            ) {
               weather_code.textContent = `Freezing Drizzle: Light and dense intensity`;
             } else if (
               dataWeather.current_weather.weathercode === 61 ||
-              63 ||
-              65
+              dataWeather.current_weather.weathercode === 63 ||
+              dataWeather.current_weather.weathercode === 65
             ) {
               weather_code.textContent = `Rain: Slight, moderate and heavy intensity`;
-            } else if (dataWeather.current_weather.weathercode === 66 || 67) {
+            } else if (
+              dataWeather.current_weather.weathercode === 66 ||
+              dataWeather.current_weather.weathercode === 67
+            ) {
               weather_code.textContent = `Freezing Rain: Light and heavy intensity`;
             } else if (
               dataWeather.current_weather.weathercode === 71 ||
-              73 ||
-              75
+              dataWeather.current_weather.weathercode === 73 ||
+              dataWeather.current_weather.weathercode === 75
             ) {
               weather_code.textContent = `Snow fall: Slight, moderate, and heavy intensity`;
             } else if (dataWeather.current_weather.weathercode === 77) {
               weather_code.textContent = `Snow grains`;
             } else if (
               dataWeather.current_weather.weathercode === 80 ||
-              81 ||
-              82
+              dataWeather.current_weather.weathercode === 81 ||
+              dataWeather.current_weather.weathercode === 82
             ) {
               weather_code.textContent = `Rain showers: Slight, moderate, and violent`;
-            } else if (dataWeather.current_weather.weathercode === 85 || 86) {
+            } else if (
+              dataWeather.current_weather.weathercode === 85 ||
+              dataWeather.current_weather.weathercode === 86
+            ) {
               weather_code.textContent = `Snow showers slight and heavy`;
             } else if (dataWeather.current_weather.weathercode === 95) {
               weather_code.textContent = `Thunderstorm: Slight or moderate`;
-            } else if (dataWeather.current_weather.weathercode === 96 || 99) {
+            } else if (
+              dataWeather.current_weather.weathercode === 96 ||
+              dataWeather.current_weather.weathercode === 99
+            ) {
               weather_code.textContent = `Thunderstorm with slight and heavy hail`;
             }
           });
       });
   }
 });
-
-function setGradientByTime() {
-  const hour = new Date().getHours();
-  let gradient = "";
-
-  if (hour >= 5 && hour < 11) {
-    gradient = "linear-gradient(to bottom, #FFA500, #FFD700)";
-  } else if (hour >= 11 && hour < 15) {
-    gradient = "linear-gradient(to bottom, #25edffff, #4cd2ffff)";
-  } else if (hour >= 15 && hour < 18) {
-    gradient = "linear-gradient(to bottom, #FFD700, #FF8C00)";
-  } else {
-    gradient = "linear-gradient(to bottom, #00004dff, #310053ff)";
-  }
-
-  document.body.style.background = gradient;
-}
-setGradientByTime();
-setInterval(setGradientByTime, 5 * 60 * 1000);

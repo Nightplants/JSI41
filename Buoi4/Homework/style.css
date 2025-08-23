@@ -1,7 +1,7 @@
 body {
   margin: 0;
   height: 100vh;
-  transition: background 2s ease;
+  background-image: linear-gradient(#00004dff, #310053ff);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,9 @@ body {
 .container {
   height: 500px;
   width: 300px;
-  background-color: antiquewhite;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+  border: rgba(255, 255, 255, 0.121);
   border-radius: 20px;
   padding: 20px;
   font-size: x-large;
@@ -32,4 +34,8 @@ body {
   align-items: center;
   height: 80%;
   background: transparent;
+}
+
+.content .weather_code {
+  text-align: center;
 }
