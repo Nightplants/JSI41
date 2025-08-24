@@ -19,6 +19,11 @@ body {
   border-radius: 20px;
   padding: 20px;
   font-size: large;
+  color: aliceblue;
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
 }
 
 .container .search_box {
@@ -26,6 +31,10 @@ body {
   height: 30px;
   border-radius: 12px;
   font-size: large;
+  background: transparent;
+  color: aliceblue;
+  border: rgba(255, 255, 255, 0.2) 4px solid;
+  border-radius: 10px;
 }
 
 .container .content {
@@ -40,4 +49,122 @@ body {
 
 .content .weather_code {
   text-align: center;
+}
+
+.search_history {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 300px;
+  overflow-y: auto;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  color: aliceblue;
+  display: none;
+  padding: 15px;
+  z-index: 999;
+}
+
+.search_history.visible {
+  display: block;
+}
+
+.history_item {
+  padding: 8px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.history_item:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.history_button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 14px 28px;
+  font-size: 16px;
+  background-color: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50px;
+  color: aliceblue;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.search_history.visible ~ .history_button {
+  right: 370px;
+}
+
+/* Container chứa hiệu ứng */
+.weather_effects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* để không cản người dùng bấm nút */
+  overflow: hidden;
+  z-index: 1;
+}
+
+.raindrop,
+.snowflake {
+  position: absolute;
+  top: -10px;
+  width: 2px;
+  height: 10px;
+  background: rgba(173, 216, 230, 0.8);
+  animation: fall linear infinite;
+}
+
+.snowflake {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+  opacity: 0.8;
+  animation: snow linear infinite;
+}
+
+.lightning {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes snow {
+  to {
+    transform: translateY(100vh);
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+  }
 }
