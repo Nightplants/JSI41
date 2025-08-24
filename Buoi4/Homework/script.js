@@ -4,6 +4,7 @@ let place = document.querySelector(`.place`);
 let weather_code = document.querySelector(`.weather_code`);
 let temperature = document.querySelector(`.temperature`);
 let wind_speed = document.querySelector(`.wind_speed`);
+let wind_direction = document.querySelector(`.wind_direction`);
 
 search_box.addEventListener(`keydown`, function (e) {
   if (e.key === `Enter`) {
@@ -26,8 +27,9 @@ search_box.addEventListener(`keydown`, function (e) {
           })
           .then(function (dataWeather) {
             console.log(dataWeather);
-            temperature.textContent = `${dataWeather.current_weather.temperature}${dataWeather.current_weather_units.temperature}`;
-            wind_speed.textContent = `${dataWeather.current_weather.windspeed}${dataWeather.current_weather_units.windspeed}`;
+            temperature.textContent = `temperature: ${dataWeather.current_weather.temperature}${dataWeather.current_weather_units.temperature}`;
+            wind_speed.textContent = `wind speed: ${dataWeather.current_weather.windspeed}${dataWeather.current_weather_units.windspeed}`;
+            wind_direction.textContent = `wind speed: ${dataWeather.current_weather.winddirection}${dataWeather.current_weather_units.winddirection}`;
             if (dataWeather.current_weather.weathercode === 0) {
               weather_code.textContent = `Clear sky`;
               container.style.backgroundColor = `skyblue`;
