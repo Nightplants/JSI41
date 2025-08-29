@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="module">
+      import { v4 as uuidv4 } from "https://cdn.jsdelivr.net/npm/uuid@8.3.2/dist/esm-browser/index.js";
+
+      window.uuidv4 = uuidv4;
+    </script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Add Product</h1>
+      <img src="https://www.wearegecko.co.uk/media/50316/mountain-3.jpg" />
+      <br />
+      <input type="text" class="name" placeholder="Product name" /><br />
+      <input type="text" class="price" placeholder="Product price" /><br />
+      <input
+        type="text"
+        class="category"
+        placeholder="Product category"
+      /><br />
+      <input
+        type="text"
+        class="description"
+        placeholder="Product description"
+      /><br />
+      <button class="addBtn">Add</button>
+    </div>
+
+    <button class="getAllBtn">Get all</button>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>

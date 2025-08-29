@@ -122,7 +122,22 @@ const products = [
   },
 ];
 
-localStorage.setItem(`products`, JSON.stringify(products))
+localStorage.setItem(`products`, JSON.stringify(products));
+
+let additionProducts = JSON.parse(localStorage.getItem(`additionProducts`));
+console.log(additionProducts);
+additionProducts.forEach((product) => {
+  productItem = {
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    category: product.category,
+    description: product.description,
+    image: `https://picsum.photos/300/200?random=1`,
+  };
+  products.push(product);
+  console.log(products);
+});
 
 let body = document.querySelector(`body`);
 let search_bar = document.querySelector(`.search_bar`);
