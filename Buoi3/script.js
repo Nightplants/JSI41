@@ -123,7 +123,6 @@ const products = [
 ];
 
 let additionProducts = JSON.parse(localStorage.getItem(`additionProducts`));
-console.log(additionProducts);
 additionProducts.forEach((product) => {
   productItem = {
     id: product.id,
@@ -134,7 +133,6 @@ additionProducts.forEach((product) => {
     image: `https://picsum.photos/300/200?random=1`,
   };
   products.push(product);
-  console.log(products);
 });
 
 localStorage.setItem(`products`, JSON.stringify(products));
