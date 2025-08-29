@@ -122,8 +122,6 @@ const products = [
   },
 ];
 
-localStorage.setItem(`products`, JSON.stringify(products));
-
 let additionProducts = JSON.parse(localStorage.getItem(`additionProducts`));
 console.log(additionProducts);
 additionProducts.forEach((product) => {
@@ -138,6 +136,8 @@ additionProducts.forEach((product) => {
   products.push(product);
   console.log(products);
 });
+
+localStorage.setItem(`products`, JSON.stringify(products));
 
 let body = document.querySelector(`body`);
 let search_bar = document.querySelector(`.search_bar`);
