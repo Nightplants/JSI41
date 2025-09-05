@@ -162,8 +162,7 @@ products.forEach((product) => {
         <p>Giá: ${product.price}</p>
         <p>${product.category}</p>
         <a href="./product_detail.html?product_id=${product.id}">Xem chi tiết tại đây</a>
-        <button class="Add">Thêm vào giỏ hàng</button> </br>
-        <button class="update">Update</button> <button class="delete">Delete</button>
+        <button class="Add">Thêm vào giỏ hàng</button>
     `;
   container.appendChild(product_item);
   body.appendChild(container);
