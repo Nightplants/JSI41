@@ -1,141 +1,49 @@
-const products = [
-  {
-    id: 1,
-    name: `Áo Thun Nam Cotton`,
-    price: 199000,
-    category: `Thời trang`,
-    description: `Áo thun nam chất liệu cotton mềm mại, thoáng mát.`,
-    image: `https://picsum.photos/300/200?random=1`,
-  },
-  {
-    id: 2,
-    name: `Giày Thể Thao Unisex`,
-    price: 450000,
-    category: `Giày dép`,
-    description: `Giày thể thao unisex phong cách trẻ trung, năng động.`,
-    image: `https://picsum.photos/300/200?random=2`,
-  },
-  {
-    id: 3,
-    name: `Tai Nghe Bluetooth`,
-    price: 350000,
-    category: `Điện tử`,
-    description: `Tai nghe Bluetooth âm thanh sống động, pin lâu.`,
-    image: `https://picsum.photos/300/200?random=3`,
-  },
-  {
-    id: 4,
-    name: `Túi Xách Da Nữ`,
-    price: 599000,
-    category: `Phụ kiện`,
-    description: `Túi xách da nữ sang trọng, phù hợp mọi dịp.`,
-    image: `https://picsum.photos/300/200?random=4`,
-  },
-  {
-    id: 5,
-    name: `Bình Giữ Nhiệt 500ml`,
-    price: 150000,
-    category: `Gia dụng`,
-    description: `Bình giữ nhiệt 500ml giữ nóng/lạnh lên đến 12 giờ.`,
-    image: `https://picsum.photos/300/200?random=5`,
-  },
+import {
+  get,
+  getDatabase,
+  set,
+  ref,
+  onValue,
+  update,
+  remove,
+  push,
+  child,
+} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js";
 
-  {
-    id: 6,
-    name: `Mũ Lưỡi Trai Nam`,
-    price: 99000,
-    category: `Phụ kiện`,
-    description: `Mũ lưỡi trai thời trang cho nam.`,
-    image: `https://picsum.photos/300/200?random=6`,
-  },
-  {
-    id: 7,
-    name: `Balo Laptop Chống Nước`,
-    price: 350000,
-    category: `Phụ kiện`,
-    description: `Balo laptop chống nước, nhiều ngăn tiện lợi.`,
-    image: `https://picsum.photos/300/200?random=7`,
-  },
-  {
-    id: 8,
-    name: `Điện Thoại Android A1`,
-    price: 2990000,
-    category: `Điện tử`,
-    description: `Điện thoại Android giá rẻ, hiệu năng ổn định.`,
-    image: `https://picsum.photos/300/200?random=8`,
-  },
-  {
-    id: 9,
-    name: `Loa Bluetooth Mini`,
-    price: 250000,
-    category: `Điện tử`,
-    description: `Loa Bluetooth nhỏ gọn, âm thanh sống động.`,
-    image: `https://picsum.photos/300/200?random=9`,
-  },
-  {
-    id: 10,
-    name: `Bộ LEGO City`,
-    price: 899000,
-    category: `Đồ chơi`,
-    description: `Bộ LEGO City cho trẻ em từ 6 tuổi trở lên.`,
-    image: `https://picsum.photos/300/200?random=10`,
-  },
-  {
-    id: 11,
-    name: `Búp Bê Barbie`,
-    price: 499000,
-    category: `Đồ chơi`,
-    description: `Búp bê Barbie với phụ kiện thời trang.`,
-    image: `https://picsum.photos/300/200?random=11`,
-  },
-  {
-    id: 12,
-    name: `Sách Kỹ Năng Sống`,
-    price: 120000,
-    category: `Sách`,
-    description: `Cuốn sách dạy kỹ năng sống cho mọi lứa tuổi.`,
-    image: `https://picsum.photos/300/200?random=12`,
-  },
-  {
-    id: 13,
-    name: `Tiểu Thuyết Lãng Mạn`,
-    price: 95000,
-    category: `Sách`,
-    description: `Tiểu thuyết tình cảm nhẹ nhàng, sâu lắng.`,
-    image: `https://picsum.photos/300/200?random=13`,
-  },
-  {
-    id: 14,
-    name: `Bàn Học Gấp Gọn`,
-    price: 450000,
-    category: `Gia dụng`,
-    description: `Bàn học gấp gọn tiết kiệm diện tích.`,
-    image: `https://picsum.photos/300/200?random=14`,
-  },
-  {
-    id: 15,
-    name: `Máy Xay Sinh Tố Mini`,
-    price: 380000,
-    category: `Gia dụng`,
-    description: `Máy xay mini nhỏ gọn, dễ vệ sinh.`,
-    image: `https://picsum.photos/300/200?random=15`,
-  },
-];
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
 
-let additionProducts = JSON.parse(localStorage.getItem(`additionProducts`));
-additionProducts.forEach((product) => {
-  productItem = {
+const firebaseConfig = {
+  apiKey: "AIzaSyBAVKNELcNgr3xY4CFSzQD87OGgyyzxRr0",
+  authDomain: "huy-jsi41.firebaseapp.com",
+  projectId: "huy-jsi41",
+  storageBucket: "huy-jsi41.firebasestorage.app",
+  messagingSenderId: "839045868452",
+  appId: "1:839045868452:web:2a912c132e219471212f31",
+  measurementId: "G-2DWT67ZVQ8",
+};
+
+const app = initializeApp(firebaseConfig);
+const database = getDatabase(app);
+
+get(ref(database, "products/")).then((snapShot) => {
+  if (snapShot.exists()) {
+    let product = Object.values(snapShot.val());
+    localStorage.setItem(`products`, JSON.stringify(product));
+  }
+});
+
+let products = JSON.parse(localStorage.getItem(`products`));
+
+products.forEach((product) => {
+  set(ref(database, "products/" + product.id), {
     id: product.id,
     name: product.name,
+    image: `https://picsum.photos/300/200?random=${product.id}`,
     price: product.price,
     category: product.category,
     description: product.description,
-    image: `https://picsum.photos/300/200?random=1`,
-  };
-  products.push(product);
+  });
 });
-
-localStorage.setItem(`products`, JSON.stringify(products));
 
 let body = document.querySelector(`body`);
 let search_bar = document.querySelector(`.search_bar`);
@@ -162,14 +70,14 @@ products.forEach((product) => {
         <p>Giá: ${product.price}</p>
         <p>${product.category}</p>
         <a href="./product_detail.html?product_id=${product.id}"?>Xem chi tiết tại đây</a>
-        <button class="add">Thêm vào giỏ hàng</button> </br>
-        <button class="update">Update</button> <button class="delete">Delete</button>
+        <button class="add"">Thêm vào giỏ hàng</button> </br>
+        <button class="update" id="${product.id}">Cập nhật</button> <button class="delete" id="${product.id}">Xóa</button>
     `;
   container.appendChild(product_item);
   body.appendChild(container);
 });
 
-let containers = document.getElementsByClassName(`container`);
+let containers = document.querySelectorAll(`.container`);
 
 function getActiveCategories() {
   return Array.from(document.querySelectorAll(".category_button.active")).map(
@@ -198,11 +106,71 @@ function applyFilter() {
 
 search_bar.addEventListener(`input`, applyFilter);
 
-let buttons = document.getElementsByClassName(`category_button`);
+let buttons = document.querySelectorAll(`.category_button`);
 for (let i = 0; i < buttons.length; i++) {
   let button = buttons[i];
   button.addEventListener(`click`, function () {
     button.classList.toggle("active");
     applyFilter();
+  });
+}
+
+let update_form = document.querySelector(`.update_form`);
+let updates = document.querySelectorAll(`.update`);
+let product_id = null;
+for (let i = 0; i < updates.length; i++) {
+  let update = updates[i];
+  update.addEventListener(`click`, function () {
+    update_form.style.display = `flex`;
+    product_id = update.id;
+  });
+}
+
+let update_button = document.querySelector(`.update_button`);
+update_button.addEventListener(`click`, function (e) {
+  e.preventDefault();
+  let name = document.querySelector(`.name_update`);
+  let price = document.querySelector(`.price_update`);
+  let category = document.querySelector(`.category_update`);
+  let description = document.querySelector(`.description_update`);
+  if (!name.value && !price.value && !category.value && !description.value) {
+    alert(`Xin vui lòng không bỏ trống`);
+  } else {
+    products.forEach((product) => {
+      if (product.id == product_id) {
+        product.name = name.value;
+        product.price = price.value;
+        product.category = category.value;
+        product.description = description.value;
+      }
+    });
+    localStorage.setItem(`products`, JSON.stringify(products));
+  }
+  update_form.style.display = `none`;
+  window.location.reload();
+});
+
+let delete_buttons = document.querySelectorAll(`.delete`);
+product_id = null;
+for (let i = 0; i < delete_buttons.length; i++) {
+  let deleteBtn = delete_buttons[i];
+  deleteBtn.addEventListener(`click`, function () {
+    products.forEach((product) => {
+      if (product.id == deleteBtn.id) {
+        let confirmation = confirm(
+          `ban có chắc muốn xóa sản phẩm này hay không?`
+        );
+        if (confirmation == true) {
+          products = products.filter((item) => item !== product);
+          localStorage.setItem(`products`, JSON.stringify(products));
+          try {
+            remove(ref(getDatabase(), `products/` + product.id))
+          } catch (error) {
+            alert(`Xóa thất bại`)
+          };
+          window.location.reload();
+        }
+      }
+    });
   });
 }

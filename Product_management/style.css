@@ -1,5 +1,5 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: Calibri;
   background-color: #f4f4f4;
   margin: 0;
   padding: 20px;
@@ -31,6 +31,42 @@ body {
 .category_button.active {
   background-color: #007bff;
   color: white;
+}
+
+.update_form {
+  position: fixed;
+  width: 375px;
+  right: -15px;
+  top: 0;
+  bottom: 0;
+  background-color: #e9e9e9;
+  border: #9c9c9c 6px outset;
+  border-radius: 20px;
+  display: none;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.update_form h1 {
+  font-size: 60px;
+}
+
+.update_form input {
+  font-family: Calibri;
+  font-size: larger;
+  padding: 5px;
+  width: 85%;
+  border-radius: 5px;
+  border: black 2px solid;
+  margin-bottom: 20px;
+}
+
+.update_form button {
+  padding: 8px;
+  font-size: larger;
+  width: 100px;
 }
 
 .container {
