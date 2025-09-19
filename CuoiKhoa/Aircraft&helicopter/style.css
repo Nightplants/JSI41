@@ -1,0 +1,145 @@
+body {
+  background-color: rgb(226, 226, 226);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  font-size: larger;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: #333;
+  margin: 0;
+  padding-top: 120px;
+}
+
+header {
+  background: #2d4739;
+  color: white;
+  width: 100%;
+  height: 70px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+}
+
+.nav-left {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.nav-center {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.logo {
+  margin: 0;
+  font-size: 22px;
+  font-weight: bold;
+  color: #c2b280;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #f1f1f1;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+nav a:hover {
+  color: #c2b280;
+}
+
+.username strong {
+  color: #c2b280;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.vehicle_input {
+  padding: 8px 12px;
+  width: 300px;
+  font-size: 16px;
+  border: 2px solid #6b6b3b;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.vehicle_input:focus {
+  border-color: #c2b280;
+}
+
+.find {
+  padding: 8px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  background-color: #3e6257;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.find:hover {
+  background-color: #2d4739;
+}
+
+.container {
+  margin-top: 30px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 600px;
+  max-width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container h2 {
+  margin-top: 0;
+  color: #2d4739;
+}
+
+.container p {
+  line-height: 1.5;
+}
+
+.container .extract {
+  line-height: 1.4;
+  text-align: justify;
+  margin-top: 10px;
+}
+
+.container img {
+  display: block;
+  margin: 15px auto;
+  max-width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
