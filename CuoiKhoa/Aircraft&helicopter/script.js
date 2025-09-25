@@ -48,7 +48,7 @@ async function getCategories(title) {
   return categories;
 }
 
-button.addEventListener(`click`, async function () {
+async function Find() {
   let rawQuery = input.value;
   let query = normalizeQuery(rawQuery);
   container.innerHTML = "<p>Đang tìm kiếm...</p>";
@@ -87,5 +87,15 @@ button.addEventListener(`click`, async function () {
   } catch (err) {
     console.error("Lỗi:", err);
     container.innerHTML = `<p>${err.message}</p>`;
+  }
+}
+
+button.addEventListener(`click`, function () {
+  Find();
+});
+
+input.addEventListener(`keyup`, function () {
+  if (event.key === `Enter`) {
+    Find();
   }
 });
