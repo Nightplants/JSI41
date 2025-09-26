@@ -15,7 +15,7 @@ function normalizeQuery(query) {
 }
 
 async function searchWikipedia(query) {
-  const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(
+  const endpoint = `https://vi.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(
     query
   )}&format=json&origin=*`;
   const response = await fetch(endpoint);
@@ -24,7 +24,7 @@ async function searchWikipedia(query) {
 }
 
 async function getSummary(title) {
-  const endpoint = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
+  const endpoint = `https://vi.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
     title
   )}`;
   const response = await fetch(endpoint);
@@ -33,7 +33,7 @@ async function getSummary(title) {
 }
 
 async function getCategories(title) {
-  const endpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=categories&titles=${encodeURIComponent(
+  const endpoint = `https://vi.wikipedia.org/w/api.php?action=query&prop=categories&titles=${encodeURIComponent(
     title
   )}&format=json&origin=*`;
   const response = await fetch(endpoint);
@@ -60,7 +60,10 @@ async function Find() {
       let categories = await getCategories(result.title);
       if (
         categories.some(
-          (c) => c.includes("aircraft") || c.includes("airplanes")
+          (c) =>
+            c.includes("máy bay") ||
+            c.includes("máy bay phản lực") ||
+            c.includes("máy bay quân sự")
         )
       ) {
         foundAircraft = result.title;

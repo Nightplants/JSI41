@@ -1,0 +1,19 @@
+    <header>
+      <div class="nav-left">
+        <h1 class="logo">🛦 Airforce wiki</h1>
+      </div>
+
+      <div class="nav-center">
+        <nav>
+          <a href="#">Trang chủ</a>
+          <a href="#">Tra cứu phương tiện</a>
+          <a href="#">Gói tài khoản</a>
+          <a href="#">Phương tiện yêu thích</a>
+          <a href="#">Bản thiết kế cho Minecraft</a>
+        </nav>
+      </div>
+
+      <div class="nav-right">
+        <span class="username">Xin chào, <strong>Pilot_One</strong></span>
+      </div>
+    </header>
