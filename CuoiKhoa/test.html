@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkbox trái tim</title>
+  <style>
+    .heart-checkbox {
+      display: none;
+    }
+
+    .heart-label {
+      font-size: 25px;
+      cursor: pointer;
+      user-select: none;
+      color: gray;
+      transition: color 0.3s ease;
+    }
+    .heart-checkbox:checked + .heart-label {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>Checkbox trái tim</h2>
+
+  <input type="checkbox" id="heart" class="heart-checkbox">
+  <label for="heart" class="heart-label">❤</label>
+
+</body>
+</html>

@@ -77,7 +77,9 @@ async function Find() {
     }
 
     let summary = await getSummary(foundAircraft);
-    container.innerHTML = `
+    container.innerHTML = `      
+      <input type="checkbox" id="heart" class="heart-checkbox">
+      <label for="heart" class="heart-label">❤</label>
           ${
             summary.thumbnail
               ? `<img src="${summary.thumbnail.source}" alt="${summary.title}">`

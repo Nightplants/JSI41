@@ -158,3 +158,21 @@ nav a:hover {
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
+
+.heart-checkbox {
+  display: none;
+}
+
+.heart-label {
+  font-size: 25px;
+  cursor: pointer;
+  user-select: none;
+  color: gray;
+  transition: color 0.3s ease;
+  width: fit-content;
+  align-self: self-end;
+  margin-bottom: -40px;
+}
+.heart-checkbox:checked + .heart-label {
+  color: red;
+}
