@@ -81,3 +81,13 @@ nav a:hover {
 .username strong {
   color: #c2b280;
 }
+
+.general {
+  margin: 0;
+}
+
+.general_text {
+  width: 60%;
+  font-size: larger;
+  text-align: justify;
+}
