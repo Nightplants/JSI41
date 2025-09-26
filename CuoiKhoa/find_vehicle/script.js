@@ -1,6 +1,7 @@
 let input = document.querySelector(`.vehicle_input`);
 let button = document.querySelector(`.find`);
 let container = document.querySelector(`.container`);
+let favourite = JSON.parse(localStorage.getItem("favourite")) || [];
 
 function normalizeQuery(query) {
   query = query.trim();
@@ -89,6 +90,19 @@ async function Find() {
       <p><em>${summary.description || ""}</em></p>
       <p class="extract">${summary.extract}</p>
     `;
+    let checkbox = document.querySelector(`.heart-checkbox`);
+    console.log(checkbox);
+    checkbox.addEventListener(`change`, function () {
+      if (checkbox.checked) {
+        favourite.push(summary.title);
+        favourite = [...new Set(favourite)];
+        localStorage.setItem(`favourite`, JSON.stringify(favourite));
+        console.log(favourite);
+      } else {
+        favourite = favourite.filter((item) => item != summary.title);
+        console.log(favourite);
+      }
+    });
   } catch (err) {
     console.error("Lỗi:", err);
     container.innerHTML = `<p>${err.message}</p>`;
