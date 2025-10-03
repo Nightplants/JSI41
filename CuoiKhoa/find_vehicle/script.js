@@ -3,6 +3,9 @@ let button = document.querySelector(`.find`);
 let container = document.querySelector(`.container`);
 let favourite = JSON.parse(localStorage.getItem("favourite")) || [];
 
+let username = document.querySelector("strong");
+username.textContent = `${localStorage.getItem(`username`)}`
+
 function normalizeQuery(query) {
   query = query.trim();
   let match = query.match(/^([a-zA-Z]+)[\s-]?(\d+)$/);

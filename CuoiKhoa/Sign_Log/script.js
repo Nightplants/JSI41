@@ -49,7 +49,8 @@ register_btn.addEventListener("click", async function () {
         password: password,
       });
       alert("Tạo tài khoản thành công");
-      window.location.href = `../Home/index.html?user=${username}`;
+      localStorage.setItem(`username`, username);
+      window.location.href = `../Home/index.html`;
     })
     .catch((err) => {
       const errorCode = err.code;
@@ -72,7 +73,8 @@ login_btn.addEventListener("click", function () {
       }).then(() => {
         localStorage.setItem("name", email);
         alert("Đăng nhập thành công");
-        window.location.href = `../Home/index.html?user=${username}`;
+        localStorage.setItem(`username`, username);
+        window.location.href = `../Home/index.html`;
       });
     })
     .catch((err) => {
