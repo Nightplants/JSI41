@@ -8,7 +8,7 @@ body {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   color: #333;
   margin: 0;
-  padding-top: 120px;
+  overflow: hidden;
 }
 
 header {
@@ -34,6 +34,20 @@ header {
   align-items: center;
 }
 
+.nav-center {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.nav-right {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: flex-end;
+  max-width: 220px;
+}
+
 .logo {
   margin: 0;
   font-size: 22px;
@@ -41,25 +55,29 @@ header {
   color: #c2b280;
 }
 
-.Sign_in {
-  background-color: #dadada;
-  padding: 28px 23px;
-  border-radius: 15px;
+nav {
   display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  text-align: center;
+  gap: 20px;
 }
 
-.Sign_in * {
-  margin: 5px;
+nav a {
+  text-decoration: none;
+  color: #f1f1f1;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+nav a:hover {
+  color: #c2b280;
 }
 
-.Sign_in .title {
-  font-size: 65px;
-  margin-bottom: 15px;
+.username {
+  display: inline-block;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.Sign_in input{
-    margin-top: 0;
+.username strong {
+  color: #c2b280;
 }

@@ -90,18 +90,32 @@ async function Find() {
       <p><em>${summary.description || ""}</em></p>
       <p class="extract">${summary.extract}</p>
     `;
+
     let checkbox = document.querySelector(`.heart-checkbox`);
-    console.log(checkbox);
-    checkbox.addEventListener(`change`, function () {
+
+    // Kiểm tra nếu item đã có trong favourite thì đánh dấu checked
+    if (favourite.some((item) => item.name === summary.title)) {
+      checkbox.checked = true;
+    }
+
+    checkbox.addEventListener("change", function () {
       if (checkbox.checked) {
-        favourite.push(summary.title);
-        favourite = [...new Set(favourite)];
-        localStorage.setItem(`favourite`, JSON.stringify(favourite));
-        console.log(favourite);
+        let favouriteItem = {
+          name: summary.title,
+          image: summary.thumbnail ? summary.thumbnail.source : "",
+          description: summary.description || "",
+          extract: summary.extract || "",
+        };
+
+        if (!favourite.some((item) => item.name === favouriteItem.name)) {
+          favourite.push(favouriteItem);
+          localStorage.setItem("favourite", JSON.stringify(favourite));
+        }
       } else {
-        favourite = favourite.filter((item) => item != summary.title);
-        console.log(favourite);
+        favourite = favourite.filter((item) => item.name !== summary.title);
+        localStorage.setItem("favourite", JSON.stringify(favourite));
       }
+      console.log("Favourites:", favourite);
     });
   } catch (err) {
     console.error("Lỗi:", err);
@@ -113,7 +127,7 @@ button.addEventListener(`click`, function () {
   Find();
 });
 
-input.addEventListener(`keyup`, function () {
+input.addEventListener(`keyup`, function (event) {
   if (event.key === `Enter`) {
     Find();
   }
