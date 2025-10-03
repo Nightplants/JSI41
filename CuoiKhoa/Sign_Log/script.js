@@ -71,9 +71,8 @@ login_btn.addEventListener("click", function () {
       update(ref(database, "user/" + user.uid), {
         lastLogin: date,
       }).then(() => {
-        localStorage.setItem("name", email);
-        alert("Đăng nhập thành công");
         localStorage.setItem(`username`, username);
+        alert("Đăng nhập thành công");
         window.location.href = `../Home/index.html`;
       });
     })
