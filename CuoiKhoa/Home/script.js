@@ -1,6 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
 import {
   getDatabase,
+  get,
   set,
   ref,
   update,
@@ -27,4 +28,8 @@ const database = getDatabase(app);
 const auth = getAuth();
 
 let username = document.querySelector("strong");
-get(ref(database, "user"))
+get(ref(database, "user/")).then((snapShot) => {
+  if (snapShot.exists()) {
+    console.log(Object.values(snapShot.val()));
+  }
+});

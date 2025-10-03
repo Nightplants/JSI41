@@ -27,14 +27,17 @@ const database = getDatabase(app);
 const auth = getAuth();
 
 let email_login = document.getElementById("email_input_login");
+let username_login = document.getElementById("username_input_login");
 let password_login = document.getElementById("password_input_login");
 let email_register = document.getElementById("email_input_register");
+let username_register = document.getElementById("username_input_register")
 let password_register = document.getElementById("password_input_register");
 let login_btn = document.getElementById("login_btn");
 let register_btn = document.getElementById("register_btn");
 
 register_btn.addEventListener("click", async function () {
-  let email = email_register.value; // bắt buộc là email
+  let email = email_register.value;
+  let username = username_register.value
   let password = password_register.value;
   await createUserWithEmailAndPassword(auth, email, password)
     .then(async (userCredential) => {
@@ -42,9 +45,11 @@ register_btn.addEventListener("click", async function () {
       await set(ref(database, "user/" + user.uid), {
         id: user.uid,
         email: email,
+        username: username,
         password: password,
       });
       alert("Tạo tài khoản thành công");
+      window.location.href = `../Home/index.html?user=${username}`
     })
     .catch((err) => {
       const errorCode = err.code;
@@ -55,6 +60,7 @@ register_btn.addEventListener("click", async function () {
 
 login_btn.addEventListener("click", function () {
   let email = email_login.value;
+  let username = username_login.value
   let password = password_login.value;
 
   signInWithEmailAndPassword(auth, email, password)
