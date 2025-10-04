@@ -6,15 +6,13 @@ let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
 const userName = document.querySelector("strong");
 userName.textContent = `${localStorage.getItem("username") || "Guest"}`;
 
-// Normalize the user's search query
 function normalizeQuery(query) {
   query = query.trim();
   return query.charAt(0).toUpperCase() + query.slice(1);
 }
 
-// Search for articles on English Wikipedia
 async function searchWikipedia(query) {
-  const endpoint = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(
+  const endpoint = `https:
     query
   )}&format=json&origin=*`;
   const response = await fetch(endpoint);
@@ -22,9 +20,8 @@ async function searchWikipedia(query) {
   return data.query.search;
 }
 
-// Get the article summary
 async function getSummary(title) {
-  const endpoint = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(
+  const endpoint = `https:
     title
   )}`;
   const response = await fetch(endpoint);
@@ -33,9 +30,8 @@ async function getSummary(title) {
   return await response.json();
 }
 
-// Get article categories
 async function getCategories(title) {
-  const endpoint = `https://en.wikipedia.org/w/api.php?action=query&prop=categories&titles=${encodeURIComponent(
+  const endpoint = `https:
     title
   )}&format=json&origin=*`;
   const response = await fetch(endpoint);
@@ -50,7 +46,6 @@ async function getCategories(title) {
   return categories;
 }
 
-// Main search function
 async function findDessert() {
   const rawQuery = input.value;
   const query = normalizeQuery(rawQuery);
