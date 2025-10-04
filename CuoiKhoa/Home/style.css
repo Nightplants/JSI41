@@ -1,23 +1,21 @@
 * {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   margin: 0;
 }
 
 body {
-  background: linear-gradient(135deg, #dce3dc, #f0f2f0);
+  background-color: antiquewhite;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  font-size: larger;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  color: #333;
-  margin: 0;
-  overflow: hidden;
+  color: #4a3c2a;
+  overflow-x: hidden;
 }
 
 header {
-  background: #2d4739;
-  color: white;
+  background: wheat;
+  color: #4a3c2a;
   width: 97%;
   height: 70px;
   position: fixed;
@@ -28,94 +26,80 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 0 30px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  border-bottom: 4px solid rgb(190, 172, 139);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
   z-index: 1000;
 }
 
-.nav-left {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-}
-
-.nav-center {
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.nav-right {
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: flex-end;
-  max-width: 220px;
-}
-
-.logo {
-  margin: 0;
-  font-size: 22px;
+.brand-logo {
+  font-size: 26px;
   font-weight: bold;
-  color: #c2b280;
+  color: #8b4513;
+  transition: 0.3s ease-in-out;
+}
+.brand-logo:hover {
+  color: rgb(190, 172, 139);
 }
 
 nav {
   display: flex;
   gap: 20px;
 }
-
 nav a {
   text-decoration: none;
-  color: #f1f1f1;
+  color: #4a3c2a;
   font-weight: 500;
-  transition: color 0.3s;
+  transition: color 0.2s;
+  font-size: x-large;
 }
 nav a:hover {
-  color: #c2b280;
+  color: rgb(190, 172, 139);
 }
 
-.username {
-  display: inline-block;
-  max-width: 200px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.user-label {
+  font-size: x-large;
+}
+.user-label strong {
+  color: #8b4513;
 }
 
-.username strong {
-  color: #c2b280;
-}
-
-.container {
+.content {
   margin-top: 120px;
-  background: #fff;
-  padding: 20px;
-  border-radius: 12px;
+  background: #fff8e1;
+  padding: 30px;
+  border-radius: 16px;
   width: 600px;
   max-width: 90%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  min-height: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 40px;
-}
-
-p {
-  margin-top: 5px;
-  margin-bottom: 15px;
   font-size: larger;
-  text-align: justify;
+  margin-bottom: 50px;
 }
 
+.content h1 {
+  color: #5c3d1b;
+  margin-bottom: 15px;
+}
+
+.content h2 {
+  color: #5c3d1b;
+  margin: 20px 0 10px;
+}
+
+.content p {
+  text-align: justify;
+  margin-bottom: 15px;
+}
+
+ul {
+  text-align: left;
+  margin: 10px 0 0 20px;
+}
 ul li a {
   text-decoration: none;
-  color: #000000;
-  font-weight: 500;
+  color: #4a3c2a;
   transition: color 0.3s;
 }
-
-a:hover {
-  color: #c2b280;
+ul li a:hover {
+  color: rgb(190, 172, 139);
 }

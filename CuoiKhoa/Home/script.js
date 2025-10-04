@@ -1,2 +1,2 @@
 let username = document.querySelector("strong");
-username.textContent = `${localStorage.getItem(`username`)}`
+username.textContent = `${localStorage.getItem(`username`)}`;
