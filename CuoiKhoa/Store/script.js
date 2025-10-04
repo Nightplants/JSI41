@@ -141,3 +141,9 @@ const products = [
       "Germany’s most famous WWII fighter aircraft, used throughout the war.",
   },
 ];
+
+products.forEach((product) => {
+    let container = document.querySelector(`.container`)
+    let productItem = document.createElement(`div`)
+    productItem.className = `.productItem`
+})
