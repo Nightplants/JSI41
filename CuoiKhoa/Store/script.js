@@ -1,149 +1,280 @@
-let username = document.querySelector("strong");
-username.textContent = `${localStorage.getItem(`username`)}`;
+const userName = document.querySelector("strong");
+userName.textContent = `${localStorage.getItem("username") || "Guest"}`;
 
-const products = [
+const PLACEHOLDER = "https://via.placeholder.com/400x240?text=No+Image";
+
+// helper để tạo URL ảnh từ Unsplash (theo từ khóa)
+function unsplash(query) {
+  return `https://source.unsplash.com/600x400/?${encodeURIComponent(query)}`;
+}
+
+const desserts = [
   {
-    name: "Tomica Premium JASDF F-35A Fighter",
-    image: "https://via.placeholder.com/200x120?text=Tomica+F-35A",
-    price: "$12.50",
+    name: "Butter Cookies",
+    image: unsplash("butter cookies"),
+    price: "$4.50",
+    description: "Crispy and buttery Danish cookies with a golden texture.",
+  },
+  {
+    name: "Chocolate Chip Cookies",
+    image: unsplash("chocolate chip cookies"),
+    price: "$5.00",
+    description: "Classic cookies filled with melting chocolate chips.",
+  },
+  {
+    name: "Macarons",
+    image: unsplash("macarons"),
+    price: "$8.50",
+    description: "French almond meringue cookies with colorful flavors.",
+  },
+  {
+    name: "Tiramisu",
+    image: unsplash("tiramisu dessert"),
+    price: "$6.00",
     description:
-      "Compact die-cast model of the F-35A with fine detailing, perfect for display.",
+      "Italian dessert with layers of coffee-soaked biscuits and mascarpone cream.",
   },
   {
-    name: "SR-71 Blackbird Diecast",
-    image: "https://via.placeholder.com/200x120?text=SR-71+Blackbird",
-    price: "$22.00",
+    name: "Cheesecake",
+    image: unsplash("cheesecake"),
+    price: "$7.00",
     description:
-      "Metal die-cast model of the legendary SR-71 spy plane, known for its supersonic speed.",
+      "Rich, creamy New York-style cheesecake topped with strawberries.",
   },
   {
-    name: "F/A-18 Super Hornet Diecast",
-    image: "https://via.placeholder.com/200x120?text=F-A18+Super+Hornet",
-    price: "$75.00",
+    name: "Cupcake",
+    image: unsplash("cupcake dessert"),
+    price: "$3.50",
+    description: "Soft vanilla cupcake with colorful sprinkles and frosting.",
+  },
+  {
+    name: "Croissant",
+    image: unsplash("croissant"),
+    price: "$2.80",
+    description: "Flaky French pastry made with layers of buttery dough.",
+  },
+  {
+    name: "Donut",
+    image: unsplash("donut glazed"),
+    price: "$2.50",
     description:
-      "Detailed die-cast Navy jet model of the F/A-18, used on US aircraft carriers.",
+      "Soft ring donut coated in sweet glaze — simple and delicious.",
   },
   {
-    name: "Revell F-16C Plastic Kit",
-    image: "https://via.placeholder.com/200x120?text=Revell+F-16C",
-    price: "$10.50",
+    name: "Brownie",
+    image: unsplash("chocolate brownie"),
+    price: "$4.00",
+    description: "Moist and fudgy chocolate brownie with a rich cocoa flavor.",
+  },
+  {
+    name: "Mochi Ice Cream",
+    image: unsplash("mochi ice cream"),
+    price: "$6.50",
+    description: "Japanese mochi stuffed with sweet ice cream filling.",
+  },
+  {
+    name: "Pancakes",
+    image: unsplash("pancakes"),
+    price: "$5.00",
+    description: "Fluffy golden pancakes served with syrup and butter.",
+  },
+  {
+    name: "Waffles",
+    image: unsplash("waffles"),
+    price: "$5.50",
+    description: "Crispy waffles with maple syrup and fruits.",
+  },
+  {
+    name: "Fruit Tart",
+    image: unsplash("fruit tart"),
+    price: "$6.00",
+    description: "Sweet pastry crust topped with custard and fresh fruits.",
+  },
+  {
+    name: "Apple Pie",
+    image: unsplash("apple pie"),
+    price: "$5.50",
+    description: "Classic pie filled with sweet apples and cinnamon.",
+  },
+  {
+    name: "Lemon Cake",
+    image: unsplash("lemon cake"),
+    price: "$4.80",
+    description: "Moist lemon cake with a tangy glaze.",
+  },
+  {
+    name: "Eclair",
+    image: unsplash("chocolate eclair"),
+    price: "$3.80",
     description:
-      "Revell’s 1/72 scale plastic kit of the F-16C, ideal for hobbyists and model builders.",
+      "French pastry filled with cream and topped with chocolate icing.",
   },
   {
-    name: "A-10 Warthog Diecast",
-    image: "https://via.placeholder.com/200x120?text=A-10+Warthog",
-    price: "$55.00",
+    name: "Pudding",
+    image: unsplash("pudding dessert"),
+    price: "$3.00",
+    description: "Silky smooth pudding with a creamy vanilla flavor.",
+  },
+  {
+    name: "Banoffee Pie",
+    image: unsplash("banoffee pie"),
+    price: "$5.20",
+    description: "Pie made with banana, cream, and toffee on a biscuit base.",
+  },
+  {
+    name: "Mousse",
+    image: unsplash("chocolate mousse"),
+    price: "$4.20",
+    description: "Light and airy chocolate mousse served chilled.",
+  },
+  {
+    name: "Baklava",
+    image: unsplash("baklava dessert"),
+    price: "$6.00",
     description:
-      "Die-cast model of the famous A-10 Thunderbolt II, armed with the iconic GAU-8 cannon.",
+      "Middle Eastern dessert made with nuts and honey between layers of pastry.",
   },
   {
-    name: "Tamiya F-14 Tomcat Kit",
-    image: "https://via.placeholder.com/200x120?text=Tamiya+F-14",
-    price: "$70.00",
+    name: "Crème Brûlée",
+    image: unsplash("creme brulee"),
+    price: "$7.50",
     description:
-      "Tamiya’s 1/48 scale F-14 Tomcat kit with swing wing details and realistic panel lines.",
+      "French custard dessert topped with a caramelized sugar crust.",
   },
   {
-    name: "F-22 Raptor",
-    image: "https://via.placeholder.com/200x120?text=F-22+Raptor",
-    price: "$95.00",
+    name: "Danish Pastry",
+    image: unsplash("danish pastry"),
+    price: "$3.80",
+    description: "Buttery layered pastry filled with cream or fruit jam.",
+  },
+  {
+    name: "Cinnamon Roll",
+    image: unsplash("cinnamon roll"),
+    price: "$3.90",
+    description: "Soft sweet roll with cinnamon sugar filling and icing.",
+  },
+  {
+    name: "Cupcake Trio",
+    image: unsplash("cupcake assorted"),
+    price: "$6.50",
+    description: "A set of three cupcakes with different frosting flavors.",
+  },
+  {
+    name: "Carrot Cake",
+    image: unsplash("carrot cake"),
+    price: "$5.20",
+    description: "Moist carrot cake with cream cheese frosting.",
+  },
+  {
+    name: "Profiteroles",
+    image: unsplash("profiteroles"),
+    price: "$4.80",
+    description: "Small cream-filled choux pastry balls covered in chocolate.",
+  },
+  {
+    name: "Churros",
+    image: unsplash("churros"),
+    price: "$3.50",
+    description: "Spanish fried dough sticks dusted with cinnamon sugar.",
+  },
+  {
+    name: "Jelly Dessert",
+    image: unsplash("fruit jelly dessert"),
+    price: "$2.50",
+    description: "Colorful fruit jelly served chilled.",
+  },
+  {
+    name: "Ice Cream Sundae",
+    image: unsplash("ice cream sundae"),
+    price: "$5.80",
     description:
-      "Model of the US 5th generation stealth fighter with extreme maneuverability.",
+      "Scoops of ice cream topped with syrup, nuts, and whipped cream.",
   },
   {
-    name: "F-35 Lightning II",
-    image: "https://via.placeholder.com/200x120?text=F-35+Lightning+II",
-    price: "$110.00",
-    description:
-      "Modern multirole stealth fighter used by the US and allied nations.",
+    name: "Pavlova",
+    image: unsplash("pavlova dessert"),
+    price: "$6.50",
+    description: "Meringue-based dessert topped with whipped cream and fruit.",
   },
   {
-    name: "F-16 Fighting Falcon",
-    image: "https://via.placeholder.com/200x120?text=F-16+Fighting+Falcon",
-    price: "$40.00",
-    description:
-      "One of the world’s most popular fighters, available as both die-cast and plastic kits.",
+    name: "Strawberry Shortcake",
+    image: unsplash("strawberry shortcake"),
+    price: "$5.90",
+    description: "Soft sponge cake layered with cream and fresh strawberries.",
   },
   {
-    name: "F-15 Eagle",
-    image: "https://via.placeholder.com/200x120?text=F-15+Eagle",
-    price: "$85.00",
-    description:
-      "Legendary US air superiority fighter with unmatched combat record.",
+    name: "Oreo Cheesecake",
+    image: unsplash("oreo cheesecake"),
+    price: "$6.70",
+    description: "Creamy cheesecake with crushed Oreo cookies.",
   },
   {
-    name: "Su-57 Felon",
-    image: "https://via.placeholder.com/200x120?text=Su-57+Felon",
-    price: "$105.00",
-    description: "Russian 5th generation stealth fighter, rival to the F-22.",
+    name: "Cupcake Deluxe",
+    image: unsplash("cupcake frosting"),
+    price: "$4.20",
+    description: "Gourmet cupcake with thick buttercream swirl.",
   },
   {
-    name: "Su-35 Flanker-E",
-    image: "https://via.placeholder.com/200x120?text=Su-35+Flanker-E",
-    price: "$80.00",
-    description:
-      "Highly maneuverable Russian multirole fighter with thrust vectoring engines.",
+    name: "Chocolate Lava Cake",
+    image: unsplash("chocolate lava cake"),
+    price: "$6.00",
+    description: "Warm chocolate cake with molten center.",
   },
   {
-    name: "MiG-29 Fulcrum",
-    image: "https://via.placeholder.com/200x120?text=MiG-29+Fulcrum",
-    price: "$45.00",
-    description:
-      "Compact Soviet/Russian fighter jet, widely exported around the world.",
+    name: "Tartlets",
+    image: unsplash("mini tartlets"),
+    price: "$5.00",
+    description: "Mini tarts with creamy fillings and fruits.",
   },
   {
-    name: "MiG-21 Fishbed",
-    image: "https://via.placeholder.com/200x120?text=MiG-21+Fishbed",
-    price: "$30.00",
-    description: "Historic Cold War jet fighter, produced in massive numbers.",
-  },
-  {
-    name: "Eurofighter Typhoon",
-    image: "https://via.placeholder.com/200x120?text=Eurofighter+Typhoon",
-    price: "$90.00",
-    description:
-      "European 4.5 generation multirole fighter with advanced avionics.",
-  },
-  {
-    name: "Dassault Rafale",
-    image: "https://via.placeholder.com/200x120?text=Dassault+Rafale",
-    price: "$92.00",
-    description:
-      "French twin-engine multirole fighter with nuclear capability.",
-  },
-  {
-    name: "JAS 39 Gripen",
-    image: "https://via.placeholder.com/200x120?text=JAS+39+Gripen",
-    price: "$65.00",
-    description:
-      "Swedish lightweight fighter, affordable and efficient for small air forces.",
-  },
-  {
-    name: "J-20 Mighty Dragon",
-    image: "https://via.placeholder.com/200x120?text=J-20+Mighty+Dragon",
-    price: "$120.00",
-    description:
-      "Chinese 5th generation stealth fighter, competitor to the F-35.",
-  },
-  {
-    name: "Spitfire Mk IX",
-    image: "https://via.placeholder.com/200x120?text=Spitfire+Mk+IX",
-    price: "$28.00",
-    description:
-      "Iconic British WWII fighter that defended the skies in the Battle of Britain.",
-  },
-  {
-    name: "Messerschmitt Bf 109",
-    image: "https://via.placeholder.com/200x120?text=Messerschmitt+Bf+109",
-    price: "$32.00",
-    description:
-      "Germany’s most famous WWII fighter aircraft, used throughout the war.",
+    name: "Soufflé",
+    image: unsplash("souffle dessert"),
+    price: "$7.20",
+    description: "Fluffy baked dessert made with egg whites and chocolate.",
   },
 ];
 
-products.forEach((product) => {
-    let container = document.querySelector(`.container`)
-    let productItem = document.createElement(`div`)
-    productItem.className = `.productItem`
-})
+const productGrid = document.querySelector(".product-grid");
+
+// tạo card sản phẩm
+desserts.forEach((dessert) => {
+  const card = document.createElement("div");
+  card.className = "product-card";
+
+  const img = document.createElement("img");
+  img.alt = dessert.name || "Dessert";
+  img.src = dessert.image;
+  img.addEventListener("error", function () {
+    console.warn(`Image failed to load for "${dessert.name}"`);
+    if (img.src !== PLACEHOLDER) img.src = PLACEHOLDER;
+  });
+
+  const title = document.createElement("h2");
+  title.textContent = dessert.name;
+
+  const desc = document.createElement("p");
+  desc.className = "product-description";
+  desc.textContent = dessert.description;
+
+  const price = document.createElement("p");
+  price.className = "product-price";
+  price.textContent = dessert.price;
+
+  const btn = document.createElement("button");
+  btn.className = "buy-btn";
+  btn.textContent = "Buy Now";
+  btn.addEventListener("click", () => {
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    cart.push({ name: dessert.name, price: dessert.price });
+    localStorage.setItem("cart", JSON.stringify(cart));
+    alert(`"${dessert.name}" added to cart!`);
+  });
+
+  card.appendChild(img);
+  card.appendChild(title);
+  card.appendChild(desc);
+  card.appendChild(price);
+  card.appendChild(btn);
+
+  productGrid.appendChild(card);
+});
