@@ -36,12 +36,19 @@ onAuthStateChanged(auth, async (user) => {
   if (user) {
     currentUserId = user.uid;
 
-    const userRef = ref(db, `user/${currentUserId}`);
-    const snapshot = await get(userRef);
+    try {
+      const userRef = ref(db, `user/${currentUserId}/username`);
+      const snapshot = await get(userRef);
 
-    if (snapshot.exists()) {
-      const data = snapshot.val();
-      currentUserName = data.username || "User";
+      if (snapshot.exists()) {
+        currentUserName = snapshot.val();
+        localStorage.setItem("username", currentUserName);
+      } else {
+        currentUserName = "User";
+      }
+    } catch (err) {
+      console.error("Error loading username:", err);
+      currentUserName = "User";
     }
 
     userNameDisplay.textContent = currentUserName;
