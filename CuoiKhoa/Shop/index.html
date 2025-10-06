@@ -3,26 +3,48 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cookie Shop</title>
+    <title>Sweetpedia 🍪 - Dessert Shop</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-
   <body>
     <header>
-      <h1>Welcome, <strong>Guest</strong> 🍪</h1>
-      <button id="logoutBtn" class="logout-btn">Logout</button>
+      <div class="header-left">
+        <h1 class="brand-logo">🍪 Sweetpedia</h1>
+      </div>
+
+      <div class="header-center">
+        <nav>
+          <a href="../Home/index.html">Home</a>
+          <a href="../Find_cookies/index.html">Find Desserts</a>
+          <a href="../Cart/index.html">Cart</a>
+          <a href="../Favourties/index.html">Favorites</a>
+        </nav>
+      </div>
+
+      <div class="header-right">
+        <span class="user-label">Welcome, <strong>User</strong></span>
+      </div>
     </header>
 
-    <main>
-      <section class="shop-section">
-        <h2>🍰 Our Sweet Desserts</h2>
-        <div class="product-grid" id="defaultProducts"></div>
+    <main class="shop-container">
+      <h1 class="shop-title">🍩 Dessert Shop</h1>
+      <p class="shop-description">
+        Explore our sweetest collection or sell your own treats!
+      </p>
+
+      <section class="add-product-section">
+        <h2>Add Your Product 🍪</h2>
+        <input type="text" id="newName" placeholder="Product name" />
+        <input type="text" id="newPrice" placeholder="Price (e.g. $5.00)" />
+        <input type="text" id="newDesc" placeholder="Description" />
+        <button id="addProduct" class="buy-btn">Add Product</button>
       </section>
 
-      <section class="shop-section">
-        <h2>🧁 Your Products</h2>
-        <div class="product-grid" id="userProducts"></div>
-      </section>
+      <h2 class="section-title">🍰 Sweetpedia Desserts</h2>
+      <div class="product-grid default-products"></div>
+
+      <h2 class="section-title">🧁 My Products</h2>
+      <div class="product-grid my-products"></div>
     </main>
 
     <script type="module" src="script.js"></script>

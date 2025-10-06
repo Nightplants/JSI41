@@ -8,10 +8,6 @@ import {
   remove,
   get,
 } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js";
-import {
-  getAuth,
-  onAuthStateChanged,
-} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-auth.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBL9Ox9HNV3Mxg94fYAbDJxsplSmeXXa-E",
@@ -26,40 +22,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
-const auth = getAuth();
 
-const userNameDisplay = document.querySelector("strong");
-let currentUserId = null;
-let currentUserName = "Guest";
-
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    currentUserId = user.uid;
-
-    try {
-      const userRef = ref(db, `user/${currentUserId}/username`);
-      const snapshot = await get(userRef);
-
-      if (snapshot.exists()) {
-        currentUserName = snapshot.val();
-        localStorage.setItem("username", currentUserName);
-      } else {
-        currentUserName = "User";
-      }
-    } catch (err) {
-      console.error("Error loading username:", err);
-      currentUserName = "User";
-    }
-
-    userNameDisplay.textContent = currentUserName;
-    startStore();
-  } else {
-    currentUserName = localStorage.getItem("username") || "Guest";
-    currentUserId = "guest";
-    userNameDisplay.textContent = currentUserName;
-    startStore();
-  }
-});
+let username = document.querySelector("strong");
+username.textContent = localStorage.getItem("username") || "Guest";
 
 function randomImage() {
   const randomId = Math.floor(Math.random() * 1000);
@@ -137,7 +102,7 @@ const myGrid = document.querySelector(".my-products");
 const addBtn = document.querySelector("#addProduct");
 
 function startStore() {
-  const myProductsRef = ref(db, `user/${currentUserId}/myProducts`);
+  const myProductsRef = ref(db, "user/myProducts");
 
   onValue(myProductsRef, (snapshot) => {
     const data = snapshot.val() || {};
@@ -166,6 +131,7 @@ function startStore() {
       price,
       description: desc,
       image: randomImage(),
+      addedBy: localStorage.getItem("username") || "Guest",
     };
 
     await set(newRef, newProduct);
@@ -193,7 +159,7 @@ function renderAll(myProducts) {
     });
   } else {
     const emptyMsg = document.createElement("p");
-    emptyMsg.textContent = "You haven't listed any products yet.";
+    emptyMsg.textContent = "No user-added products yet.";
     myGrid.appendChild(emptyMsg);
   }
 }
@@ -240,7 +206,7 @@ function createCard(dessert, isUser = false, id = null) {
     delBtn.textContent = "Delete";
     delBtn.addEventListener("click", async () => {
       if (confirm(`Delete your product "${dessert.name}"?`)) {
-        await remove(ref(db, `user/${currentUserId}/myProducts/${id}`));
+        await remove(ref(db, `user/myProducts/${id}`));
         alert(`"${dessert.name}" deleted successfully!`);
       }
     });
@@ -249,3 +215,5 @@ function createCard(dessert, isUser = false, id = null) {
 
   return card;
 }
+
+startStore();
