@@ -3,9 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sweetpedia 🍪 - Dessert Shop</title>
+    <title>Sweetpedia 🍪 - My Favorites</title>
     <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <header>
       <div class="header-left">
@@ -16,8 +17,8 @@
         <nav>
           <a href="../Home/index.html">Home</a>
           <a href="../Find_cookies/index.html">Find Desserts</a>
+          <a href="../Shop/index.html">Shop</a>
           <a href="../Cart/index.html">Cart</a>
-          <a href="../Favourties/index.html">Favorites</a>
         </nav>
       </div>
 
@@ -26,14 +27,12 @@
       </div>
     </header>
 
-    <main class="shop-container">
-      <h1 class="shop-title">🍩 Dessert Shop</h1>
-      <p class="shop-description">
-        Explore our sweetest collection of cookies, cakes, pastries, and treats.
-        Add your favorites and discover new desserts every day!
-      </p>
-
-      <div class="product-grid"></div>
+    <main class="favorites-container">
+      <h1>❤️ My Favorite Desserts</h1>
+      <div class="favorites-list"></div>
+      <div class="favorites-actions">
+        <button class="clear-favorites">Clear All</button>
+      </div>
     </main>
 
     <script src="script.js"></script>
