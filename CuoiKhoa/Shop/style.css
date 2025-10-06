@@ -82,6 +82,12 @@ nav a:hover {
   color: #5c3d1b;
 }
 
+.section-title {
+  color: #5c3d1b;
+  margin-top: 40px;
+  font-size: 28px;
+}
+
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -99,7 +105,6 @@ nav a:hover {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   transition: transform 0.3s, box-shadow 0.3s;
 }
-
 .product-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
@@ -134,14 +139,43 @@ nav a:hover {
 }
 
 .buy-btn {
-  padding: 8px 14px;
-  border: 2px solid rgb(190, 172, 139);
   background-color: rgb(255, 239, 206);
-  color: #4a3c2a;
-  border-radius: 8px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 2px solid rgb(190, 172, 139);
+  transition: 0.12s ease-in-out;
   cursor: pointer;
-  transition: 0.2s ease-in-out;
 }
 .buy-btn:hover {
   background-color: rgb(231, 215, 182);
+}
+
+.delete-btn {
+  background-color: rgb(255, 220, 220);
+  border: 2px solid rgb(190, 100, 100);
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-left: 5px;
+}
+.delete-btn:hover {
+  background-color: rgb(240, 180, 180);
+}
+
+.add-product-section {
+  margin: 30px 0;
+  padding: 15px;
+  background-color: #fff8e1;
+  border: 3px solid rgb(190, 172, 139);
+  border-radius: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.add-product-section input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 2px solid rgb(190, 172, 139);
+  background-color: rgb(255, 239, 206);
+  width: 200px;
 }
