@@ -179,3 +179,15 @@ nav a:hover {
   background-color: rgb(255, 239, 206);
   width: 200px;
 }
+
+.edit-btn {
+  background-color: rgb(255, 239, 206);
+  border: 2px solid rgb(190, 172, 139);
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+.edit-btn:hover {
+  background-color: rgb(231, 215, 182);
+}
