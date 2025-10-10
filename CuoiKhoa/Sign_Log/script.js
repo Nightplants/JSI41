@@ -50,6 +50,7 @@ register_btn.addEventListener("click", async function () {
       });
       alert("Tạo tài khoản thành công");
       localStorage.setItem(`username`, username);
+      localStorage.setItem(`Id`, user.uid);
       window.location.href = `../Home/index.html`;
     })
     .catch((err) => {
@@ -72,6 +73,7 @@ login_btn.addEventListener("click", function () {
         lastLogin: date,
       }).then(() => {
         localStorage.setItem(`username`, username);
+        localStorage.setItem(`Id`, user.uid);
         alert("Đăng nhập thành công");
         window.location.href = `../Home/index.html`;
       });

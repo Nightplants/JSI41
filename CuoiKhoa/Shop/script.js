@@ -102,7 +102,7 @@ const myGrid = document.querySelector(".my-products");
 const addBtn = document.querySelector("#addProduct");
 
 function startStore() {
-  const myProductsRef = ref(db, "user/myProducts");
+  const myProductsRef = ref(db, `user/${localStorage.getItem(`Id`)}/myProducts`);
 
   onValue(myProductsRef, (snapshot) => {
     const data = snapshot.val() || {};
@@ -206,7 +206,7 @@ function createCard(dessert, isUser = false, id = null) {
     delBtn.textContent = "Delete";
     delBtn.addEventListener("click", async () => {
       if (confirm(`Delete your product "${dessert.name}"?`)) {
-        await remove(ref(db, `user/myProducts/${id}`));
+        await remove(ref(db, `user/${localStorage.getItem(`Id`)}/myProducts/${id}`));
         alert(`"${dessert.name}" deleted successfully!`);
       }
     });
