@@ -6,7 +6,6 @@ import {
   push,
   onValue,
   remove,
-  get,
 } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js";
 
 const firebaseConfig = {
@@ -23,8 +22,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-let username = document.querySelector("strong");
-username.textContent = localStorage.getItem("username") || "Guest";
+const userId = localStorage.getItem("Id");
+const username = localStorage.getItem("username") || "Guest";
+document.querySelector("strong").textContent = username;
 
 function randomImage() {
   const randomId = Math.floor(Math.random() * 1000);
@@ -101,9 +101,8 @@ const defaultGrid = document.querySelector(".default-products");
 const myGrid = document.querySelector(".my-products");
 const addBtn = document.querySelector("#addProduct");
 
-function startStore() {
-  const myProductsRef = ref(db, `user/${localStorage.getItem(`Id`)}/myProducts`);
-
+function startShop() {
+  const myProductsRef = ref(db, `user/${userId}/myProducts`);
   onValue(myProductsRef, (snapshot) => {
     const data = snapshot.val() || {};
     const myProducts = Object.entries(data).map(([id, value]) => ({
@@ -123,15 +122,13 @@ function startStore() {
       return;
     }
 
-    const newRef = push(myProductsRef);
-    const newId = newRef.key;
+    const newRef = push(ref(db, `user/${userId}/myProducts`));
     const newProduct = {
-      id: newId,
+      id: newRef.key,
       name,
       price,
       description: desc,
       image: randomImage(),
-      addedBy: localStorage.getItem("username") || "Guest",
     };
 
     await set(newRef, newProduct);
@@ -159,7 +156,7 @@ function renderAll(myProducts) {
     });
   } else {
     const emptyMsg = document.createElement("p");
-    emptyMsg.textContent = "No user-added products yet.";
+    emptyMsg.textContent = "You haven't listed any products yet.";
     myGrid.appendChild(emptyMsg);
   }
 }
@@ -183,32 +180,72 @@ function createCard(dessert, isUser = false, id = null) {
   price.className = "product-price";
   price.textContent = dessert.price;
 
+  const idTag = document.createElement("p");
+  idTag.textContent = `ID: ${dessert.id || "N/A"}`;
+  idTag.style.fontSize = "14px";
+  idTag.style.color = "#7a5a2c";
+
   const buyBtn = document.createElement("button");
   buyBtn.className = "buy-btn";
   buyBtn.textContent = "Buy Now";
-  buyBtn.addEventListener("click", () => {
-    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
-    cart.push({ id: dessert.id, name: dessert.name, price: dessert.price });
+
+  buyBtn.addEventListener("click", async () => {
+    const newItem = {
+      id: dessert.id || crypto.randomUUID(),
+      name: dessert.name,
+      price: dessert.price,
+      description: dessert.description,
+      image: dessert.image || randomImage(),
+      addedBy: username,
+    };
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.push(newItem);
     localStorage.setItem("cart", JSON.stringify(cart));
-    alert(`"${dessert.name}" added to cart!`);
+
+    const cartRef = ref(db, `user/${userId}/cart`);
+    const newRef = push(cartRef);
+    await set(newRef, newItem);
+
+    alert(`"${dessert.name}" added to your cart!`);
   });
 
-  card.append(img, title, desc, price, buyBtn);
+  card.append(img, title, desc, price, idTag, buyBtn);
 
   if (isUser) {
     const delBtn = document.createElement("button");
     delBtn.className = "delete-btn";
     delBtn.textContent = "Delete";
     delBtn.addEventListener("click", async () => {
-      if (confirm(`Delete your product "${dessert.name}"?`)) {
-        await remove(ref(db, `user/${localStorage.getItem(`Id`)}/myProducts/${id}`));
+      if (confirm(`Delete "${dessert.name}"?`)) {
+        await remove(ref(db, `user/${userId}/myProducts/${id}`));
         alert(`"${dessert.name}" deleted successfully!`);
       }
     });
-    card.appendChild(delBtn);
+
+    const editBtn = document.createElement("button");
+    editBtn.className = "edit-btn";
+    editBtn.textContent = "Edit";
+    editBtn.addEventListener("click", async () => {
+      const newName = prompt("New name:", dessert.name);
+      const newPrice = prompt("New price:", dessert.price);
+      const newDesc = prompt("New description:", dessert.description);
+      if (newName && newPrice && newDesc) {
+        const updated = {
+          ...dessert,
+          name: newName,
+          price: newPrice,
+          description: newDesc,
+        };
+        await set(ref(db, `user/${userId}/myProducts/${id}`), updated);
+        alert(`"${newName}" updated successfully!`);
+      }
+    });
+
+    card.append(editBtn, delBtn);
   }
 
   return card;
 }
 
-startStore();
+startShop();
