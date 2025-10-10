@@ -180,11 +180,6 @@ function createCard(dessert, isUser = false, id = null) {
   price.className = "product-price";
   price.textContent = dessert.price;
 
-  const idTag = document.createElement("p");
-  idTag.textContent = `ID: ${dessert.id || "N/A"}`;
-  idTag.style.fontSize = "14px";
-  idTag.style.color = "#7a5a2c";
-
   const buyBtn = document.createElement("button");
   buyBtn.className = "buy-btn";
   buyBtn.textContent = "Buy Now";
@@ -210,7 +205,7 @@ function createCard(dessert, isUser = false, id = null) {
     alert(`"${dessert.name}" added to your cart!`);
   });
 
-  card.append(img, title, desc, price, idTag, buyBtn);
+  card.append(img, title, desc, price, buyBtn);
 
   if (isUser) {
     const delBtn = document.createElement("button");
