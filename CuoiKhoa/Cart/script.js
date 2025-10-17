@@ -1,7 +1,30 @@
-const userName = document.querySelector("strong");
-userName.textContent = `${localStorage.getItem("username") || "Guest"}`;
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.2/firebase-app.js";
+import {
+  getDatabase,
+  ref,
+  onValue,
+  remove,
+} from "https://www.gstatic.com/firebasejs/10.5.2/firebase-database.js";
 
-let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+const firebaseConfig = {
+  apiKey: "AIzaSyBL9Ox9HNV3Mxg94fYAbDJxsplSmeXXa-E",
+  authDomain: "jsi-cuoi-khoa-93fb2.firebaseapp.com",
+  databaseURL: "https://jsi-cuoi-khoa-93fb2-default-rtdb.firebaseio.com",
+  projectId: "jsi-cuoi-khoa-93fb2",
+  storageBucket: "jsi-cuoi-khoa-93fb2.firebasestorage.app",
+  messagingSenderId: "580788334009",
+  appId: "1:580788334009:web:3494fd5fd6580ed75f5a68",
+  measurementId: "G-7Q4R5RCRZ3",
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+let cart = JSON.parse(localStorage.getItem("cart") || "[]"); // ✅ Đặt ở đầu file
+
+const username = localStorage.getItem("username") || "Guest";
+const userId = localStorage.getItem("Id");
+document.querySelector("strong").textContent = username;
 
 const cartList = document.querySelector(".cart-list");
 const totalText = document.querySelector(".total strong");
@@ -43,26 +66,65 @@ function renderCart() {
     total += parseFloat(item.price.replace("$", ""));
   });
 
-  totalText.textContent = `${total.toFixed(2)}`;
+  totalText.textContent = `$${total.toFixed(2)}`;
 }
 
-clearBtn.addEventListener("click", () => {
+function syncCartFromFirebase() {
+  if (!userId) {
+    renderCart();
+    return;
+  }
+
+  const cartRef = ref(db, `user/${userId}/cart`);
+  onValue(cartRef, (snapshot) => {
+    const data = snapshot.val();
+
+    if (data) {
+      const firebaseCart = Object.values(data);
+      const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+      const merged = [...localCart];
+      firebaseCart.forEach((item) => {
+        if (!merged.some((localItem) => localItem.name === item.name)) {
+          merged.push(item);
+        }
+      });
+
+      cart = merged; // ✅ Cập nhật lại biến toàn cục
+      localStorage.setItem("cart", JSON.stringify(cart));
+      renderCart();
+    } else {
+      renderCart();
+    }
+  });
+}
+
+clearBtn.addEventListener("click", async () => {
   if (confirm("Are you sure you want to clear your cart?")) {
     cart = [];
     localStorage.setItem("cart", JSON.stringify(cart));
     renderCart();
+
+    if (userId) {
+      await remove(ref(db, `user/${userId}/cart`));
+    }
   }
 });
 
-checkoutBtn.addEventListener("click", () => {
+checkoutBtn.addEventListener("click", async () => {
   if (cart.length === 0) {
     alert("Your cart is empty!");
     return;
   }
+
   alert("Thank you for your purchase! 🍰");
   cart = [];
   localStorage.setItem("cart", JSON.stringify(cart));
   renderCart();
+
+  if (userId) {
+    await remove(ref(db, `user/${userId}/cart`));
+  }
 });
 
-renderCart();
+syncCartFromFirebase();
